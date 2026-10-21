@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: project-app
-          image: 708925321218.dkr.ecr.ap-northeast-2.amazonaws.com/aws-eks-gitops-project-app:859194814a02ad6999df1e89d6dbca0f20b7ce54
+          image: 708925321218.dkr.ecr.ap-northeast-2.amazonaws.com/aws-eks-gitops-project-app:cd912393aef2c528d70d53619a4d775ac1572d74
           imagePullPolicy: IfNotPresent
 
           ports:
