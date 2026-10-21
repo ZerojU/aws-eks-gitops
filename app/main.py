@@ -1,11 +1,14 @@
 import logging
-import os
-
+import json
 from fastapi import FastAPI, HTTPException
+from pathlib import Path
 
 app = FastAPI(title="EKS GitOps project")
 
-VERSION = os.getenv("APP_VERSION", "v1.0")
+VERSION_INFO = json.loads(
+    (Path(__file__).resolve().parent / "version.json")
+    .read_text(encoding="utf-8")
+)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("project-app")
@@ -18,7 +21,7 @@ def health():
 
 @app.get("/version")
 def version():
-    return {"version": VERSION}
+    return VERSION_INFO
 
 
 @app.get("/api/orders")

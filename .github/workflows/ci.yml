@@ -28,7 +28,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Python 3.11 환경 준비
+      # 2. Python 3.12 환경 준비
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -85,7 +85,10 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           IMAGE_URI="$REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-          docker build -t "$IMAGE_URI" ./app
+          docker build \
+            --build-arg GIT_COMMIT="$IMAGE_TAG" \
+            -t "$IMAGE_URI" \
+            ./app
 
       # 9. ECR 이미지 Push
       - name: Push Docker image

@@ -1,4 +1,6 @@
 from fastapi.testclient import TestClient
+import json
+from pathlib import Path
 
 from main import app
 
@@ -13,10 +15,18 @@ def test_health():
 
 
 def test_version():
+    version_file = (
+        Path(__file__).resolve().parents[1] / "version.json"
+    )
+
+    expected = json.loads(
+        version_file.read_text(encoding="utf-8")
+    )
+
     response = client.get("/version")
 
     assert response.status_code == 200
-    assert response.json() == {"version": "v1.1"}
+    assert response.json() == expected
 
 
 def test_orders():

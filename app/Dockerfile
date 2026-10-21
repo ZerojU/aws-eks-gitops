@@ -6,7 +6,11 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY main.py .
+ARG GIT_COMMIT=unknown
+
+COPY main.py version.json ./
+
+RUN python -c "import json; p='version.json'; d=json.load(open(p)); d['commit']='${GIT_COMMIT}'; open(p,'w').write(json.dumps(d))"
 
 # 고정 UID/GID를 가진 비루트 사용자 생성
 RUN groupadd --gid 10001 appgroup \
@@ -19,8 +23,6 @@ RUN groupadd --gid 10001 appgroup \
 
 # 실행 사용자 명시
 USER 10001:10001
-
-ENV APP_VERSION=v1.1
 
 EXPOSE 8000
 
