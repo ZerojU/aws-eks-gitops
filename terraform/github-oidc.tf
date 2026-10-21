@@ -78,7 +78,8 @@ data "aws_iam_policy_document" "github_ecr_push" {
       "ecr:CompleteLayerUpload",
       "ecr:PutImage",
       "ecr:BatchGetImage",
-      "ecr:DescribeRepositories"
+      "ecr:DescribeRepositories",
+      "ecr:DescribeImages"
     ]
 
     resources = [
