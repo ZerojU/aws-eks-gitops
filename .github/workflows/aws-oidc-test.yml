@@ -1,0 +1,34 @@
+name: AWS OIDC Connection Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  verify-aws:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ap-northeast-2
+          role-session-name: github-oidc-test
+
+      - name: Verify AWS identity
+        run: |
+          aws sts get-caller-identity \
+            --query '{Arn:Arn,Account:Account}' \
+            --output json
+
+      - name: Verify ECR access
+        run: |
+          aws ecr describe-repositories \
+            --repository-names aws-eks-gitops-project-app \
+            --region ap-northeast-2 \
+            --query 'repositories[].repositoryName' \
+            --output table
