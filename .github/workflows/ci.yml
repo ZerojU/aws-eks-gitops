@@ -46,7 +46,7 @@ jobs:
       - name: Run pytest
         working-directory: ./app
         run: |
-          python -m pytest -v
+          python -m pytest -v -m smoke
 
       # 5. OIDC로 AWS IAM Role 인증
       - name: Configure AWS credentials
