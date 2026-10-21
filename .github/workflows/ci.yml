@@ -47,7 +47,7 @@ jobs:
         working-directory: ./app
         run: |
           python -m pytest -v -m smoke
-
+          
       # 5. OIDC로 AWS IAM Role 인증
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6.3.0
