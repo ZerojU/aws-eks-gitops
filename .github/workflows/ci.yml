@@ -43,11 +43,11 @@ jobs:
           python -m pip install -r requirements-dev.txt
 
       # 4. 테스트 실행
-      - name: Run pytest
+      - name: Run all tests
         working-directory: ./app
         run: |
-          python -m pytest -v -m smoke
-          
+          python -m pytest -v
+
       # 5. OIDC로 AWS IAM Role 인증
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6.3.0
