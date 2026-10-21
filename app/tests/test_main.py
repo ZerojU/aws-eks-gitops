@@ -16,7 +16,7 @@ def test_version():
     response = client.get("/version")
 
     assert response.status_code == 200
-    assert response.json() == {"version": "v1.0"}
+    assert response.json() == {"version": "v1.1"}
 
 
 def test_orders():

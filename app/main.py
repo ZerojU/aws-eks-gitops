@@ -24,6 +24,7 @@ def version():
 @app.get("/api/orders")
 def get_orders():
     try:
+        """
         orders = [
             {"id": 1, "item": "keyboard"},
             {"id": 2, "item": "mouse"},
@@ -32,6 +33,18 @@ def get_orders():
         logger.info("Orders retrieved successfully")
 
         return {"orders": orders}
+        """
+
+        # v1.1 장애 재현:
+        # 존재하지 않는 필드를 참조하는 코드 오류
+        order = {"id": 1, "item": "keyboard"}
+
+        result = {
+            "id": order["id"],
+            "item": order["product_name"],
+        }
+
+        return {"orders": [result]}
 
     except Exception:
         logger.exception("Failed to retrieve orders")

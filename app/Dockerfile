@@ -20,7 +20,7 @@ RUN groupadd --gid 10001 appgroup \
 # 실행 사용자 명시
 USER 10001:10001
 
-ENV APP_VERSION=v1.0
+ENV APP_VERSION=v1.1
 
 EXPOSE 8000
 
